@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -16,15 +17,20 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 public class BaseEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     @CreatedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
-    @Column(nullable = false, length = 100)
+
+    @Column(nullable = false, updatable = false, length = 100)
     @CreatedBy
     private String createdBy;
+
     @Column(nullable = false)
     @LastModifiedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime modifiedAt;
+
     @Column(nullable = false, length = 100)
     @LastModifiedBy
     private String modifiedBy;
